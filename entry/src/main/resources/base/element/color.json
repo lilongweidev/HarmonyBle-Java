@@ -1,0 +1,24 @@
+{
+  "color": [
+    {
+      "name": "white",
+      "value": "#FFF"
+    },
+    {
+      "name": "black",
+      "value": "#000"
+    },
+    {
+      "name": "blue",
+      "value": "#FFA7D3FF"
+    },
+    {
+      "name": "bg_color",
+      "value": "#F8F8F8"
+    },
+    {
+      "name": "gray",
+      "value": "#989898"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "app": {
+    "bundleName": "com.llw.ble",
+    "vendor": "example",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    }
+  },
+  "deviceConfig": {
+  },
+  "module": {
+    "package": "com.llw.ble",
+    "name": "com.llw.ble.BleApp",
+    "mainAbility": "com.llw.ble.MainAbility",
+    "deviceType": [
+      "phone",
+      "tablet",
+      "tv",
+      "wearable",
+      "car"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry",
+      "installationFree": false
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "metaData": {
+          "customizeData": [
+            {
+              "extra": "",
+              "name": "hwc-theme",
+              "value": "androidhwext:style/Theme.Emui.Light.NoTitleBar"
+            }
+          ]
+        },
+        "name": "com.llw.ble.MainAbility",
+        "description": "$string:mainability_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_MainAbility",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "visible": true,
+        "type": "page"
+      }
+    ],
+    "reqPermissions": [
+      {
+        "name": "ohos.permission.LOCATION"
+      },
+      {
+        "name": "ohos.permission.USE_BLUETOOTH"
+      },
+      {
+        "name": "ohos.permission.DISCOVER_BLUETOOTH"
+      },
+      {
+        "name": "ohos.permission.MANAGE_BLUETOOTH"
+      }
+    ]
+  }
+}
