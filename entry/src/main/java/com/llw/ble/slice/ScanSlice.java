@@ -9,6 +9,7 @@ import com.llw.ble.provider.ScanDeviceProvider;
 import com.llw.ble.utils.LogUtils;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
+import ohos.aafwk.content.Operation;
 import ohos.agp.components.Component;
 import ohos.agp.components.ListContainer;
 import ohos.agp.components.Text;
@@ -62,7 +63,17 @@ public class ScanSlice extends AbilitySlice implements ScanCallback {
         lcDevice.setItemProvider(provider);
         //列表item点击监听
         lcDevice.setItemClickedListener((listContainer, component, position, id) -> {
-
+            //设置设备
+            bleCore.setDevice(mList.get(position).getDevice());
+            Intent jumpIntent = new Intent();
+            Operation operation = new Intent.OperationBuilder()
+                    .withAction("action.main")
+                    .withDeviceId("")
+                    .withBundleName("com.llw.ble")
+                    .withAbilityName("com.llw.ble.MainAbility")
+                    .build();
+            jumpIntent.setOperation(operation);
+            startAbility(jumpIntent);
         });
     }
 

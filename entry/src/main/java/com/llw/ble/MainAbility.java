@@ -1,5 +1,6 @@
 package com.llw.ble;
 
+import com.llw.ble.slice.MainAbilitySlice;
 import com.llw.ble.slice.ScanSlice;
 import ohos.aafwk.ability.Ability;
 import ohos.aafwk.content.Intent;
@@ -14,5 +15,8 @@ public class MainAbility extends Ability {
         window.setStatusBarColor(Color.getIntColor("#A7D3FF"));
         super.onStart(intent);
         super.setMainRoute(ScanSlice.class.getName());
+
+        // add action for ability
+        addActionRoute("action.main", MainAbilitySlice.class.getName());
     }
 }
