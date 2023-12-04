@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vector
+    xmlns:ohos="http://schemas.android.com/apk/res/android"
+    ohos:height="24vp"
+    ohos:tint="#000000"
+    ohos:viewportHeight="24"
+    ohos:viewportWidth="24"
+    ohos:width="24vp">
+
+    <path
+        ohos:fillColor="#000000"
+        ohos:pathData="M10,17l5,-5 -5,-5v10z"/>
+</vector>

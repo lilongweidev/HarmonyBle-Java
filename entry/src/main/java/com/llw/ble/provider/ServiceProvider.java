@@ -4,10 +4,10 @@ import com.llw.ble.ResourceTable;
 import com.llw.ble.utils.BleUtils;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.agp.components.*;
+import ohos.agp.components.element.VectorElement;
 import ohos.bluetooth.ble.GattService;
 
 import java.util.List;
-import java.util.Locale;
 
 /**
  * 服务提供者
@@ -16,6 +16,12 @@ public class ServiceProvider extends BaseItemProvider {
 
     private final List<GattService> serviceList;
     private final AbilitySlice slice;
+
+    private OperateCallback operateCallback;
+
+    public void setOperateCallback(OperateCallback operateCallback) {
+        this.operateCallback = operateCallback;
+    }
 
     public ServiceProvider(List<GattService> list, AbilitySlice slice) {
         this.serviceList = list;
@@ -57,8 +63,21 @@ public class ServiceProvider extends BaseItemProvider {
             holder = (ServiceHolder) cpt.getTag();
         }
 
+        holder.itemService.setClickedListener(component1 -> {
+            boolean isShow = holder.lcCharacteristics.getVisibility() == Component.VISIBLE;
+            //显示特性列表
+            holder.lcCharacteristics.setVisibility(isShow ? Component.HIDE : Component.VISIBLE);
+            //更换图标
+            VectorElement vectorElement = new VectorElement(slice.getContext(), isShow ? ResourceTable.Graphic_ic_right_24 : ResourceTable.Graphic_ic_down_24);
+            holder.ivState.setBackground(vectorElement);
+            //刷新Item高度，这个很重要，不加会造成内容覆盖。
+            notifyDataSetItemChanged(position);
+        });
+        //加载特性 设置属性回调
+        holder.lcCharacteristics.setItemProvider(new CharacteristicProvider(service.getCharacteristics(), slice, operateCallback));
+
         holder.txServiceName.setText(BleUtils.getServiceName(service.getUuid()));
-        holder.txUuid.setText(BleUtils.getServiceUUID(service.getUuid()));
+        holder.txUuid.setText(BleUtils.getShortUUID(service.getUuid()));
 
         return cpt;
     }
@@ -67,11 +86,17 @@ public class ServiceProvider extends BaseItemProvider {
      * 用于保存列表项的子组件信息
      */
     public static class ServiceHolder {
+        DependentLayout itemService;
         Text txServiceName;
         Text txUuid;
+        Image ivState;
+        ListContainer lcCharacteristics;
         public ServiceHolder(Component component) {
+            itemService = (DependentLayout) component.findComponentById(ResourceTable.Id_item_service);
             txServiceName = (Text) component.findComponentById(ResourceTable.Id_tx_service_name);
             txUuid = (Text) component.findComponentById(ResourceTable.Id_tx_uuid);
+            ivState = (Image) component.findComponentById(ResourceTable.Id_iv_state);
+            lcCharacteristics = (ListContainer) component.findComponentById(ResourceTable.Id_lc_characteristics);
         }
     }
 }

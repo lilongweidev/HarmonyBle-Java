@@ -4,6 +4,7 @@ import com.llw.ble.BleApp;
 import com.llw.ble.ResourceTable;
 import com.llw.ble.core.BleCallback;
 import com.llw.ble.core.BleCore;
+import com.llw.ble.provider.OperateCallback;
 import com.llw.ble.provider.ServiceProvider;
 import com.llw.ble.utils.LogUtils;
 import ohos.aafwk.ability.AbilitySlice;
@@ -17,12 +18,13 @@ import ohos.agp.components.element.ShapeElement;
 import ohos.agp.utils.Color;
 import ohos.agp.utils.LayoutAlignment;
 import ohos.agp.window.dialog.ToastDialog;
+import ohos.bluetooth.ble.GattCharacteristic;
 import ohos.bluetooth.ble.GattService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainAbilitySlice extends AbilitySlice implements BleCallback, ListContainer.ItemClickedListener {
+public class MainAbilitySlice extends AbilitySlice implements BleCallback, ListContainer.ItemClickedListener, OperateCallback {
 
     private static final String TAG = MainAbilitySlice.class.getSimpleName();
     private Text txDisconnect;
@@ -55,6 +57,7 @@ public class MainAbilitySlice extends AbilitySlice implements BleCallback, ListC
         });
 
         serviceProvider = new ServiceProvider(serviceList, this);
+        serviceProvider.setOperateCallback(this);
         lcService.setItemProvider(serviceProvider);
         lcService.setItemClickedListener(this);
     }
@@ -104,5 +107,10 @@ public class MainAbilitySlice extends AbilitySlice implements BleCallback, ListC
             toastText.setBackground(toastBackground);
         }
         toastDialog.show();
+    }
+
+    @Override
+    public void onPropertyOperate(GattCharacteristic characteristic, String operateName) {
+
     }
 }

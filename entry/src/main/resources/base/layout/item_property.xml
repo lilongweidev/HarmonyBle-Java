@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Text
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:id="$+id:tx_property"
+    ohos:height="match_content"
+    ohos:width="match_content"
+    ohos:end_margin="8vp"
+    ohos:text="property"
+    ohos:text_color="$color:blue"
+    ohos:text_size="14fp"/>
