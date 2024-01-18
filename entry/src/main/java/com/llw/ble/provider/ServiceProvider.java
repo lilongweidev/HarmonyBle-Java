@@ -76,9 +76,9 @@ public class ServiceProvider extends BaseItemProvider {
         //加载特性 设置属性回调
         holder.lcCharacteristics.setItemProvider(new CharacteristicProvider(service.getCharacteristics(), slice, operateCallback));
 
-        holder.txServiceName.setText(BleUtils.getServiceName(service.getUuid()));
-        holder.txUuid.setText(BleUtils.getShortUUID(service.getUuid()));
-
+        String serviceName = BleUtils.getServiceName(service.getUuid());
+        holder.txServiceName.setText(serviceName);
+        holder.txUuid.setText(serviceName.equals(BleUtils.UNKNOWN_SERVICE) ? service.getUuid().toString() : BleUtils.getShortUUID(service.getUuid()));
         return cpt;
     }
 
@@ -91,6 +91,7 @@ public class ServiceProvider extends BaseItemProvider {
         Text txUuid;
         Image ivState;
         ListContainer lcCharacteristics;
+
         public ServiceHolder(Component component) {
             itemService = (DependentLayout) component.findComponentById(ResourceTable.Id_item_service);
             txServiceName = (Text) component.findComponentById(ResourceTable.Id_tx_service_name);

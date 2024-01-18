@@ -42,8 +42,11 @@
             ohos:width="match_content"
             ohos:background_element="$color:black"
             ohos:below="$id:tx_service_name"
-            ohos:end_of="$id:tx_uuid_title"
+            ohos:truncation_mode="ellipsis_at_middle"
+            ohos:end_margin="24vp"
             ohos:text="UUID"
+            ohos:end_of="$id:tx_uuid_title"
+            ohos:align_end="$id:iv_state"
             ohos:text_size="16fp"
             ohos:top_margin="2vp"/>
 

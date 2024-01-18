@@ -9,6 +9,32 @@ import java.util.UUID;
  */
 public class BleUtils {
 
+    public static final String APP_NAME = "GoodBle";
+
+    public static final String UNKNOWN_DEVICE = "Unknown device";
+
+    public static final String UNKNOWN_SERVICE = "Unknown Service";
+
+    public static final String UNKNOWN_CHARACTERISTICS = "Unknown Characteristics";
+
+    public static final String UNKNOWN_DESCRIPTOR = "Unknown Descriptor";
+
+    public static final String BROADCAST = "Broadcast";
+
+    public static final String READ = "Read";
+
+    public static final String WRITE_NO_RESPONSE = "Write No Response";
+
+    public static final String WRITE = "Write";
+
+    public static final String NOTIFY = "Notify";
+
+    public static final String INDICATE = "Indicate";
+
+    public static final String AUTHENTICATED_SIGNED_WRITES = "Authenticated Signed Writes";
+
+    public static final String EXTENDED_PROPERTIES = "Extended Properties";
+
     public static final String generic = "-0000-1000-8000-00805F9B34FB";
 
     public static String getShortUUID(UUID uuid) {
@@ -158,7 +184,7 @@ public class BleUtils {
             case "0x1857":
                 return "Electronic Shelf Label service";
             default:
-                return "Unknown Service";
+                return UNKNOWN_SERVICE;
         }
     }
 
@@ -201,6 +227,7 @@ public class BleUtils {
 
     /**
      * 获取特性名称
+     *
      * @param uuid UUID
      */
     public static String getCharacteristicsName(UUID uuid) {
@@ -1105,7 +1132,58 @@ public class BleUtils {
             case "0x2BFF":
                 return "UDI for Medical Devices";
             default:
-                return "Unknown Characteristics";
+                return UNKNOWN_CHARACTERISTICS;
         }
     }
+
+    /**
+     * 获取描述名称
+     *
+     * @param uuid UUID
+     */
+    public static String getDescriptorName(UUID uuid) {
+        String targetUuid = getShortUUID(uuid);
+        switch (targetUuid) {
+            case "0x2900":
+                return "Characteristic Extended Properties";
+            case "0x2901":
+                return "Characteristic User Description";
+            case "0x2902":
+                return "Client Characteristic Configuration";
+            case "0x2903":
+                return "Server Characteristic Configuration";
+            case "0x2904":
+                return "Characteristic Presentation Format";
+            case "0x2905":
+                return "Characteristic Aggregate Format";
+            case "0x2906":
+                return "Valid Range";
+            case "0x2907":
+                return "External Report Reference";
+            case "0x2908":
+                return "Report Reference";
+            case "0x2909":
+                return "Number of Digitals";
+            case "0x290A":
+                return "Value Trigger Setting";
+            case "0x290B":
+                return "Environmental Sensing Configuration";
+            case "0x290C":
+                return "Environmental Sensing Measurement";
+            case "0x290D":
+                return "Environmental Sensing Trigger Setting";
+            case "0x290E":
+                return "Time Trigger Setting";
+            case "0x290F":
+                return "Complete BR-EDR Transport Block Data";
+            case "0x2910":
+                return "Observation Schedule";
+            case "0x2911":
+                return "Valid Range and Accuracy";
+            default:
+                return UNKNOWN_DESCRIPTOR;
+        }
+    }
+
+
 }

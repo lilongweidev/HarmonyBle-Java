@@ -44,22 +44,24 @@ public class CharacteristicProvider extends BaseItemProvider {
     @Override
     public Component getComponent(int position, Component component, ComponentContainer componentContainer) {
         final Component cpt;
-        ServiceHolder holder;
+        CharacteristicHolder holder;
 
         GattCharacteristic characteristic = characteristicList.get(position);
         if (component == null) {
             cpt = LayoutScatter.getInstance(slice).parse(ResourceTable.Layout_item_characteristic, null, false);
-            holder = new ServiceHolder(cpt);
+            holder = new CharacteristicHolder(cpt);
             //将获取到的子组件信息绑定到列表项的实例中
             cpt.setTag(holder);
         } else {
             cpt = component;
             // 从缓存中获取到列表项实例后，直接使用绑定的子组件信息进行数据填充。
-            holder = (ServiceHolder) cpt.getTag();
+            holder = (CharacteristicHolder) cpt.getTag();
         }
 
-        holder.txCharacterName.setText(BleUtils.getCharacteristicsName(characteristic.getUuid()));
+        String characteristicsName = BleUtils.getCharacteristicsName(characteristic.getUuid());
+        holder.txCharacterName.setText(characteristicsName);
         holder.txUuid.setText(BleUtils.getShortUUID(characteristic.getUuid()));
+        holder.txUuid.setText(characteristicsName.equals(BleUtils.UNKNOWN_CHARACTERISTICS) ? characteristic.getUuid().toString() : BleUtils.getShortUUID(characteristic.getUuid()));
 
         List<String> properties = BleUtils.getProperties(characteristic.getProperties());
         //加载属性
@@ -71,21 +73,32 @@ public class CharacteristicProvider extends BaseItemProvider {
                 operateCallback.onPropertyOperate(characteristic, properties.get(propertyPosition));
             }
         });
+        //加载特性下的描述
+        if (characteristic.getDescriptors().size() > 0) {
+            holder.lcDescriptor.setItemProvider(new DescriptorProvider(characteristic.getDescriptors(), slice));
+        } else {
+            holder.layDescriptor.setVisibility(Component.HIDE);
+        }
+
         return cpt;
     }
 
     /**
      * 用于保存列表项的子组件信息
      */
-    public static class ServiceHolder {
+    public static class CharacteristicHolder {
         Text txCharacterName;
         Text txUuid;
         ListContainer lcProperty;
+        DirectionalLayout layDescriptor;
+        ListContainer lcDescriptor;
 
-        public ServiceHolder(Component component) {
+        public CharacteristicHolder(Component component) {
             txCharacterName = (Text) component.findComponentById(ResourceTable.Id_tx_character_name);
             txUuid = (Text) component.findComponentById(ResourceTable.Id_tx_uuid);
             lcProperty = (ListContainer) component.findComponentById(ResourceTable.Id_lc_property);
+            layDescriptor = (DirectionalLayout) component.findComponentById(ResourceTable.Id_lay_descriptors);
+            lcDescriptor = (ListContainer) component.findComponentById(ResourceTable.Id_lc_descriptor);
         }
     }
 }

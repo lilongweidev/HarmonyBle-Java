@@ -35,6 +35,7 @@
         ohos:background_element="$color:black"
         ohos:below="$id:tx_character_name"
         ohos:end_of="$id:tx_uuid_title"
+        ohos:truncation_mode="ellipsis_at_middle"
         ohos:text="UUID"
         ohos:text_size="16fp"
         ohos:top_margin="2vp"/>
@@ -53,9 +54,32 @@
         ohos:id="$+id:lc_property"
         ohos:height="match_content"
         ohos:width="match_parent"
-        ohos:orientation="horizontal"
+        ohos:top_margin="2vp"
         ohos:align_bottom="$id:tx_property_title"
         ohos:align_top="$id:tx_property_title"
-        ohos:end_of="$id:tx_property_title"/>
+        ohos:end_of="$id:tx_property_title"
+        ohos:orientation="horizontal"/>
+
+    <DirectionalLayout
+        ohos:id="$+id:lay_descriptors"
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:below="$id:tx_property_title"
+        ohos:orientation="vertical">
+
+        <Text
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:text="Descriptors:"
+            ohos:text_color="#000000"
+            ohos:text_size="16fp"
+            ohos:top_margin="2vp"/>
+
+        <ListContainer
+            ohos:id="$+id:lc_descriptor"
+            ohos:height="match_content"
+            ohos:width="match_parent"/>
+
+    </DirectionalLayout>
 
 </DependentLayout>
